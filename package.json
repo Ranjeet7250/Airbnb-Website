@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "app.js" 
+},
+
   "engines": {
     "node": "22.13.0"
   },
