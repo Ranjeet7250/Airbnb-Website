@@ -1,0 +1,150 @@
+<% layout("/layouts/boilerplate") %> 
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  .filter {
+    text-align: center;
+    margin: 0 0.2rem;
+    opacity: 0.7;
+    flex: 0 0 auto;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .filter i {
+    font-size: 1.3rem;
+  }
+
+  .filter p {
+    font-size: 0.8rem;
+    padding-bottom: 0;
+  }
+
+  .tax-toggle {
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    padding: 0.6rem 1rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  #filters {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-top: 1rem;
+    gap: 1.5rem;
+  }
+
+  /* Optional scrollbar hide for better UI */
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<div id="filters">
+  <div class="filter">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i>
+    <p>Rooms</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain-city"></i>
+    <p>Iconic Cities</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountain</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-person-swimming"></i>
+    <p>Amazing Pools</p>
+  </div>
+  <div class="filter">
+    <i class="fa-brands fa-fort-awesome"></i>
+    <p>Castles</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-tents"></i>
+    <p>Camping</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-tractor"></i>
+    <p>Farms</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-snowflake"></i>
+    <p>Arctic</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-igloo"></i>
+    <p>Domes</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-sailboat"></i>
+    <p>Boats</p>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+    </div>
+  </div>
+</div>
+
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListings) { %>
+         <a href="/listing/<%= listing.id %>" class="listing-link">
+        <div class="card col listing-card">
+            <img src="<%= listing.image.url %>" class="card-img-top"  alt="listing-image" 
+            style="height: 18rem;">
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b> <br>
+                ₹ <span class="price" data-base="<%= listing.price %>">
+                  <%= listing.price.toLocaleString("en-IN") %>
+                </span> / night
+                <i class="tax-info" style="display: none;">&nbsp;&nbsp;+18% GST</i>
+              </p>
+              
+              
+            </div>
+          </div>
+        </a>   
+        <% } %>
+    </div>
+    <script>
+      const taxSwitch = document.getElementById('switchCheckDefault');
+    
+      taxSwitch.addEventListener("change", () => {
+        const prices = document.querySelectorAll('.price');
+        const taxInfos = document.querySelectorAll('.tax-info');
+    
+        prices.forEach((priceEl, index) => {
+          const basePrice = parseFloat(priceEl.getAttribute('data-base'));
+    
+          if (taxSwitch.checked) {
+            const gstPrice = basePrice * 1.18;
+            priceEl.textContent = gstPrice.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+            taxInfos[index].style.display = "inline";
+          } else {
+            priceEl.textContent = basePrice.toLocaleString("en-IN");
+            taxInfos[index].style.display = "none";
+          }
+        });
+      });
+    </script>
+    
+    

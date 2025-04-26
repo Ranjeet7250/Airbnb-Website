@@ -1,0 +1,89 @@
+<style>
+    #btn-color {
+        background-color: #fe424d;
+        color: white;
+        border-radius: 25px;
+        padding: 0.3rem 1rem 0.3rem 1rem;
+    }
+    #btn-color b {
+        color: rgb(255, 255, 255);
+        font-weight: 500;
+    }
+    #btn-color i {
+        display: inline;
+        margin-right: 0.5rem;
+    }
+    #search-btn{
+        border-radius: 25px;
+        font-size: 0.9rem;
+    }
+    .navbar-nav .nav-link {
+        color: #fe424d;
+        font-size: 1rem;
+        font-weight: 500;
+        align-items: center;
+        padding:0.3rem;
+
+        display: flex;
+    }
+    .navbar-nav a{
+        margin-left: 0.3rem;
+    }
+    .navbar-nav{
+        background-color: rgb(255, 255, 255);
+    }
+
+</style>
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+    <div class="container-fluid" style="height: 40px;">
+        <a class="navbar-brand" href="/listing"><i class="fa-regular fa-compass"></i></a>
+        <button class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/listing">Explore</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search destination" id="search-btn">
+                    <button class="btn" id="btn-color" type="submit"> <i class="fa-solid fa-magnifying-glass"></i>search</button>
+                  </form>
+            </div>
+            <div class="navbar-nav ms-auto ">
+                <a class="nav-link" href="/listing/new">Airbnb your home</a>
+                <% if(!currUser){ %>
+                <a id="btn-color" class="nav-link log" href="/signup"><b>Sign up </b></a>
+                <a id="btn-color" class="nav-link logg" href="/login"><b>Log in</b></a>
+                <% } %> 
+                <% if(currUser){ %>
+                <a id="btn-color" class="nav-link  last" href="/logout"><b>Log out</b></a>
+                <% } %> 
+            </div>
+        </div>
+    </div>
+</nav>
+<script>
+    const toggleButton = document.querySelector('.navbar-toggler');
+    const lastElement = document.querySelector('.last');
+    toggleButton.addEventListener('click', () => {
+      lastElement.style.marginBottom = '15px';
+    });
+
+    const toggle = document.querySelector('.navbar-toggler');
+    const log = document.querySelector('.log');
+    toggle.addEventListener('click', () => {
+      log.style.marginBottom = '10px';
+    });
+
+    const togglee = document.querySelector('.navbar-toggler');
+    const logg = document.querySelector('.logg');
+    togglee.addEventListener('click', () => {
+      logg.style.marginBottom = '15px';
+    });
+  </script>
+  
+  
